@@ -4,6 +4,7 @@
 #define  HEADER_TAG_H_
 
 #include <QString>
+#include <QJsonObject>
 
 class Tag {
  private:
@@ -14,6 +15,18 @@ class Tag {
     QString getTagInfo() const;
     bool operator==(const Tag& other) const {
         return this->name == other.name;  // 比较 name 字段
+    }
+    // 转换为 QJsonObject (序列化)
+    QJsonObject toJson() const {
+        QJsonObject json;
+        json["name"] = name;
+        return json;
+    }
+    // 从 QJsonObject 创建 Tag 对象 (反序列化)
+    static Tag fromJson(const QJsonObject& json) {
+        Tag tag;
+        tag.name = json["name"].toString();
+        return tag;
     }
 };
 

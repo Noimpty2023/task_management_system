@@ -6,12 +6,12 @@
 #include <QDateTime>
 #include <QIcon>
 
-#include "header/NotificationManager.h"
+#include "../header/NotificationManager.h"
 
 void NotificationManager::sendNotification(User* recipient, Task* task, Reminder* reminder) {
     // 创建消息框并显示通知
     QDateTime currentTime = QDateTime::currentDateTime();
-    QDateTime reminderTime = reminder->getReminderTime();  // 获取提醒时间
+    QDateTime reminderTime = task->getDeadline();  // 获取提醒时间
 
     // 计算时间差的秒数
     qint64 secondsDifference = currentTime.secsTo(reminderTime);

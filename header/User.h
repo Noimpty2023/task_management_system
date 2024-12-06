@@ -7,13 +7,14 @@
 #include <QList>
 #include <QDateTime>
 #include <QTimer>
+#include <QJsonObject>
 
-#include "header/Task.h"
-#include "header/ScheduleManager.h"
-#include "header/TimelineView.h"
-#include "header/FocusSessionManager.h"
-#include "header/Setting.h"
-#include "header/NotificationManager.h"
+#include "../header/Task.h"
+#include "../header/ScheduleManager.h"
+#include "../header/TimelineView.h"
+#include "../header/FocusSessionManager.h"
+#include "../header/Setting.h"
+#include "../header/NotificationManager.h"
 
 class User : public QObject {
     Q_OBJECT
@@ -39,9 +40,17 @@ class User : public QObject {
                   bool reminder_flag, const QDateTime& reminderTime);
     bool deleteTask(const Task& task);
 
+    bool createTag(const QString& name);  //调用ScheduleManager类api
+    bool deleteTag(const QString& name);  //调用ScheduleManager类api
+
     QList<Task> getTasks(const QString& order = "创建时间") const;
     QList<Tag> getTags() const;
-    bool createTag(const QString& name);
+
+    bool loadTasks(const QString& filename);  // 加载任务列表
+    bool saveTasks(const QString& filename);  // 保存任务列表
+
+    bool saveTags(const QString& filename);
+    bool loadTags(const QString& filename);
 
  private slots:
     void checkTasksAndReminders();  // 定时检查任务和提醒

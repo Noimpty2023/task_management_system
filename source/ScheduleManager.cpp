@@ -1,6 +1,7 @@
 // Copyright 2024 lyp
 
-#include "header/ScheduleManager.h"
+
+#include "../header/ScheduleManager.h"
 
 ScheduleManager::ScheduleManager() {
     // 可以在这里进行初始化，如果需要的话
@@ -51,4 +52,55 @@ QList<Task> ScheduleManager::displayTasks(const QString& order, const QList<Task
     QList<Task> sortedTasks = tasks;
     // 根据 order 参数进行排序
     return sortedTasks;
+}
+
+bool ScheduleManager::deleteTag(const QString& name) {
+    // TODO(lyp)
+    return false;
+}
+
+// 保存标签列表到文件
+bool ScheduleManager::saveTags(const QString& filename) {
+    QFile file(filename);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+        return false;
+    }
+
+    QJsonArray tagArray;
+    for (const Tag& tag : tags) {
+        QJsonObject tagObject;
+        tagObject["name"] = tag.getTagInfo();  // 假设 Tag 类有一个 `getTagInfo` 方法返回标签名称
+        tagArray.append(tagObject);
+    }
+
+    QJsonDocument doc(tagArray);
+    file.write(doc.toJson());
+    return true;
+}
+
+// 从文件加载标签列表
+bool ScheduleManager::loadTags(const QString& filename) {
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly)) {
+        return false;
+    }
+
+    QByteArray data = file.readAll();
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+    if (!doc.isArray()) {
+        return false;
+    }
+
+    QJsonArray tagArray = doc.array();
+    tags.clear();  // 清空当前的标签列表
+
+    for (const QJsonValue& value : tagArray) {
+        if (value.isObject()) {
+            QJsonObject tagObject = value.toObject();
+            QString name = tagObject["name"].toString();
+            createTag(name);  // 使用 createTag 方法来添加标签
+        }
+    }
+
+    return true;
 }

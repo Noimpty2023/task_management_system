@@ -8,8 +8,8 @@
 #include <QMessageBox>
 #include <QWidget>  // 确保你能访问 QWidget 类型
 
-#include "header/Task.h"
-#include "header/Reminder.h"
+#include "../header/Task.h"
+#include "../header/Reminder.h"
 
 class User;  // 前向声明
 

@@ -5,7 +5,7 @@
 #include <QLineEdit>
 #include <QLabel>
 
-#include "header/CreateTagWindow.h"
+#include "../header/CreateTagWindow.h"
 
 CreateTagWindow::CreateTagWindow(User* user, QWidget *parent)
     : QDialog(parent), m_user(user) {

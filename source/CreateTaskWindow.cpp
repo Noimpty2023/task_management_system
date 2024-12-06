@@ -6,7 +6,7 @@
 #include <QLabel>
 #include <QDateTimeEdit>
 
-#include "header/CreateTaskWindow.h"
+#include "../header/CreateTaskWindow.h"
 
 EditTaskWindow::EditTaskWindow(User* user, int number, QWidget *parent):
     QDialog(parent),

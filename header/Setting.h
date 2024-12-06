@@ -5,7 +5,7 @@
 
 #include <QString>
 
-#include "header/NotificationManager.h"
+#include "../header/NotificationManager.h"
 
 class Setting {
  private:
@@ -14,6 +14,7 @@ class Setting {
 
  public:
     void manageUserSettings();
+    void sendNotification(User* recipient, Task* task, Reminder* reminder);
 };
 
 #endif  // HEADER_SETTING_H_

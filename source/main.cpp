@@ -4,7 +4,7 @@
 #include <QLocale>
 #include <QTranslator>
 
-#include "header/mainwindow.h"
+#include "../header/mainwindow.h"
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);

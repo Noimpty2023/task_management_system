@@ -1,6 +1,6 @@
 // Copyright 2024 lyp
 
-#include "header/FocusSession.h"
+#include "../header/FocusSession.h"
 
 // 开始专注会话
 void FocusSession::startSession() {

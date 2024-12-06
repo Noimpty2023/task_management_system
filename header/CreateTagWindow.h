@@ -6,7 +6,7 @@
 #include <QDialog>  // 使用 QDialog 而不是 QWidget
 #include <QLineEdit>
 
-#include "header/User.h"
+#include "../header/User.h"
 
 class CreateTagWindow : public QDialog {
     Q_OBJECT

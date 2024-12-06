@@ -5,7 +5,7 @@
 
 #include <QList>
 
-#include "header/FocusSession.h"
+#include "../header/FocusSession.h"
 
 class FocusSessionManager {
  private:

@@ -1,6 +1,6 @@
 // Copyright 2024 lyp
 
-#include "header/TimelineView.h"
+#include "../header/TimelineView.h"
 
 // 显示时间线
 void TimelineView::displayTimeline() {

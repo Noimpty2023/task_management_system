@@ -1,6 +1,6 @@
 // Copyright 2024 lyp
 
-#include "header/FocusSessionManager.h"
+#include "../header/FocusSessionManager.h"
 
 // 开始专注会话
 FocusSession FocusSessionManager::startFocusSession(int duration) {

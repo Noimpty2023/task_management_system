@@ -6,9 +6,10 @@
 #include <QString>
 #include <QDateTime>
 #include <QList>
+#include <QJsonObject>
 
-#include "header/Tag.h"
-#include "header/Reminder.h"
+#include "../header/Tag.h"
+#include "../header/Reminder.h"
 
 class Task {
  private:
@@ -27,9 +28,6 @@ class Task {
     void markComplete();
     bool createReminder(const QDateTime& reminderTime, const QString& notificationMethod);
 
-    // 比较操作符
-    bool operator==(const Task& other) const;
-
     // Getter functions
     QString getTitle() const;
     QString getDescription() const;
@@ -39,6 +37,13 @@ class Task {
     Tag getTag() const;
     QList<Reminder> getReminders() const;
     bool deleteReminder(Reminder* reminder);
+
+    // 比较操作符
+    bool operator==(const Task& other) const;
+    // 序列化 Task 对象
+    QJsonObject toJson() const;
+    // 反序列化 Task 对象
+    static Task fromJson(const QJsonObject& json);
 };
 
 #endif  // HEADER_TASK_H_

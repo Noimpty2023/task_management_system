@@ -1,10 +1,17 @@
 // Copyright 2024 lyp
 
 #include <algorithm>
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QIODevice>
 
-#include "header/User.h"
+#include "../header/User.h"
 
 User::User() {
+    loadTasks("tasks.json");
+    loadTags("tags.json");
+
     // 在构造函数中初始化成员变量，必要时可进行设置
     reminderTimer = new QTimer(this);
     connect(reminderTimer, &QTimer::timeout, this, &User::checkTasksAndReminders);
@@ -12,9 +19,10 @@ User::User() {
 }
 
 User::~User() {
-    // 析构函数，清理资源
-    // 这里通常不需要手动清理 QList 和其他 Qt 容器，
-    // 但如果有动态分配的资源，应该在这里释放。
+    saveTasks("tasks.json");
+    saveTags("tags.json");
+
+    //释放其它动态分配的资源
     delete reminderTimer;
 }
 
@@ -23,7 +31,7 @@ void User::checkTasksAndReminders() {
     for (Task& task : tasks) {
         for (Reminder& reminder : task.getReminders()) {
             if (reminder.checkAndTriggerReminder()) {
-                notificationManager.sendNotification(this, &task, &reminder);
+                setting.sendNotification(this, &task, &reminder);
             }
         }
     }
@@ -110,4 +118,51 @@ QList<Tag> User::getTags() const {
 
 bool User::createTag(const QString& name) {
     return scheduleManager.createTag(name);
+}
+
+bool User::deleteTag(const QString& name) {
+    // TODO(lyp)
+    return false;
+}
+
+bool User::loadTasks(const QString& filename) {
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly)) {
+        return false;
+    }
+    QByteArray data = file.readAll();
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+    if (doc.isArray()) {
+        QJsonArray taskArray = doc.array();
+        qDebug() << tasks.size();
+        for (const QJsonValue& value : taskArray) {
+            Task task = Task::fromJson(value.toObject());
+            tasks.append(task);
+        }
+        qDebug() << tasks.size();
+        return true;
+    }
+    return false;
+}
+
+bool User::saveTasks(const QString& filename) {
+    QFile file(filename);
+    if (!file.open(QIODevice::WriteOnly)) {
+        return false;
+    }
+    QJsonArray taskArray;
+    for (const Task& task : tasks) {
+        taskArray.append(task.toJson());
+    }
+    QJsonDocument doc(taskArray);
+    file.write(doc.toJson());
+    return true;
+}
+
+bool User::saveTags(const QString& filename) {
+    return scheduleManager.saveTags(filename);  // 调用 ScheduleManager 的 saveTags 方法
+}
+
+bool User::loadTags(const QString& filename) {
+    return scheduleManager.loadTags(filename);  // 调用 ScheduleManager 的 loadTags 方法
 }

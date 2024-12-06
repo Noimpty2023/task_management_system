@@ -6,13 +6,13 @@
 #include <QDateTime>
 
 class FocusSession {
- private:
+private:
     QDateTime startTime;  // 开始时间
     int duration;         // 持续时间
     int reward;           // 奖励
     QString status;       // 状态
 
- public:
+public:
     void startSession();
     void endSession(const QString& status);
 };

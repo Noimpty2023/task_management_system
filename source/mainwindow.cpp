@@ -10,7 +10,7 @@
 #include <QLabel>
 #include <QLayout>
 
-#include "header/mainwindow.h"
+#include "../header/mainwindow.h"
 #include "build\Desktop_Qt_6_6_3_MinGW_64_bit-Debug/ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent):
@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent):
     uiName("日程"),
     tagLeftSign(0), tagSelectSign(0), timelineViewTopSign(0),
     createTagWindow(nullptr), createTaskWindow(nullptr), editTaskWindow(nullptr) {
+
     ui->setupUi(this);
     setFixedSize(360, 780);  // 设置窗口大小为360x780像素
     std::fill(std::begin(taskTopSign), std::end(taskTopSign), 0);

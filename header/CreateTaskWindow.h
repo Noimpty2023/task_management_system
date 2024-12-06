@@ -10,7 +10,7 @@
 #include <QPainter>
 #include <QPropertyAnimation>
 
-#include "header/User.h"
+#include "../header/User.h"
 
 class ToggleSwitch : public QPushButton {
     Q_OBJECT

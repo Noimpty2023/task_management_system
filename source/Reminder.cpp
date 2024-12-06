@@ -1,6 +1,6 @@
 // Copyright 2024 lyp
 
-#include "header/Reminder.h"
+#include "../header/Reminder.h"
 
 void Reminder::setReminder(const QDateTime& time, const QString& method, const QString& msg) {
     reminderTime = time;
